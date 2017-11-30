@@ -46,6 +46,29 @@ def ex_7():
 	g = lambda x: eval(formule)
 	print([g(t)%m for t in range(m)])
 
+def ex_8():
+	nb = input("Coeff de x: ")
+	mod = int(input("Modulo: "))
+	coef = int(re.findall(r'\d+', nb)[-1])
+	for i in range(mod):
+		if (coef*i)%mod == 1:
+			break;
+	i = -i + mod
+	g = lambda x: eval("(" + str(i) + "*x)%" + str(mod))
+	print([g(t) for t in range(mod)])
+
+def ex_9():
+	nb = input("Nb: ")
+	mod = int(input("Modulo: "))
+	den = int(re.findall(r'\d+', nb)[-1])
+	num = int(re.findall(r'\d+', nb)[0])
+	c =0
+	for i in range(mod-1):
+		c = den*i % mod
+		if c == num:
+			print(i)
+
+
 def ex_10():
 	formule = input("formule (exemple: '5*x**2 + 5' ): ")
 	res = int(input("resultat attendu: "))
@@ -80,11 +103,19 @@ def ex_12():
 	b = int(input("b: "))
 	print("Nb de recursions:",eudoxe(a,b,1))
 
-# don't work
 def ex_13():
 	nb_b = int(input("Nombre de boites: "))
-	nb_c = int(input("Nombre de caisses: "))
-	print(nb_b//nb_c," caisses pleines\n",nb_b%nb_c," boites restantes",sep='')
+	nb_c = int(input("Nombre de caisses: ")) - 1
+	quotient = nb_b//nb_c # quotient
+	l = []
+	t = []
+	check = nb_b%nb_c # reste
+	while check < quotient:
+		l.append(quotient)
+		t.append(check)
+		quotient -= 1
+		check = nb_b - quotient*nb_c
+	print(l,'\n',min(t))
 
 def pgcd(m,n):
 	while m%n != 0:
@@ -129,5 +160,3 @@ def ex_14():
 		else:
 			print("Quand coefficient divise m\nNecessaire")
 		return None
-
-ex_14()
